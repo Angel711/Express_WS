@@ -9,19 +9,43 @@ PATCH
 PUT
 DELETE
 */
-app.get("/",(rec,res, next) => {
+app.get("/",(req,res, next) => {
     res.status(200);
-    res.send("Welcome to the PokeDex");
+    res.send("Welcome to the Pokedex");
 });
 
-app.get("/pokemon",(rec,res, next) => {
-    console.log(rec.params.name);
+app.get("/pokemon/all",(req,res, next) => {
+    console.log(req.params.name);
     res.status(200);
     res.send(pokemon);
 })
-app.get('/pokemon/:id',(rec,res,next) => {
-    res.status(200);
-    res.send(pokemon[rec.params.id-1]);
+app.get('/pokemon/:id([0-9]{1,3})',(req,res,next) => {
+    const id = req.params.id - 1;
+    if(id >= 0 && id <=150)
+    {
+        res.status(200);
+        res.send(pokemon[req.params.id-1]);
+    }
+    else
+    {
+        res.status(404);
+        res.send("This Pokemon doesn't exist");
+    }
+    
+})
+
+app.get('/pokemon/:name',(req,res, next)=>{
+    const name = req.params.name;
+    for(i=0;i<pokemon.length;i++)
+    {
+        if(pokemon[i].name == name)
+        {
+            res.status(200);
+            res.send(pokemon[i]);
+        }
+    }
+    res.status(404);
+    res.send("This Pokemon doesn't exist");
 })
 
 app.listen(process.env.port || 3000, () => {
