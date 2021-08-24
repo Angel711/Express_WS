@@ -4,7 +4,7 @@
   "description": "This is a project developed for the node.js course",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "npx nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
