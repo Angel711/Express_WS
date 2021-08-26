@@ -1,3 +1,4 @@
+const bodyparser = require('body-parser');
 const express = require('express');
 const app = express();
 const {pokemon} = require('./pokedex.json');
@@ -9,11 +10,18 @@ PATCH - modificar una parte de un recurso
 PUT - modificar un recurso
 DELETE - borrar un recurso
 */
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 //Pagina inicial
 app.get("/",(req,res, next) => {
     return res.status(200).send("Welcome to the Pokedex");
 });
+
+app.post("/pokemon",(req,res, next)=>
+{
+    return res.status(200).send(req.body);
+})
+
 //Mostrar todos los pokemon
 app.get("/pokemon",(req,res, next) => {
     console.log(req.params.name);
@@ -37,16 +45,16 @@ app.get('/pokemon/:name([A-Za-z]+)',(req,res, next)=>{
     {
     //Operador terniario
     //condicion ? valor si verdadero : valor si falso
-        return (p.name.toUpperCase()==name.toUpperCase()) ?  p : null;
+        return (p.name.toUpperCase()==name.toUpperCase()) &&  p;
         
-    })
+    });
 
     //Operador terniario
     //condicion ? valor si verdadero : valor si falso
     (pk.length > 0) ? 
         res.status(200).send(pk) : 
         res.status(404).send("This Pokemon doesn't exist");
-})
+});
 
 app.listen(process.env.port || 3000, () => {
     console.log('Server is running...');
