@@ -1,6 +1,6 @@
 const express = require('express');
 const pokemon = express.Router();
-const pk = require('../pokedex.json').pokemon;
+const db = require('../config/database');
 
 pokemon.post("/",(req,res, next)=>
 {
@@ -8,24 +8,29 @@ pokemon.post("/",(req,res, next)=>
 })
 
 //Mostrar todos los pokemon
-pokemon.get("/",(req,res, next) => {
-    return res.status(200).send(pk);
+pokemon.get("/", async (req, res, next) => {
+    const pkmn = await db.query("SELECT * FROM pokemon");
+    return res.status(200).json(pkmn);
 })
 //Buacar pokemon por numero
-pokemon.get('/:id([0-9]{1,3})',(req,res,next) => {
-    const id = req.params.id - 1;
-    if(id >= 0 && id <=150)
+pokemon.get('/:id([0-9]{1,3})',async(req,res,next) => {
+    const id = req.params.id;
+    const pkmn = await db.query("SELECT * FROM pokemon WHERE pok_id='"+id+"';")
+    if(id >= 0 && id <=722)
     {
-        return res.status(200).send(pk[req.params.id-1]);
+        return res.status(200).json(pkmn);
     }
     return res.status(404).send("This Pokemon doesn't exist");
     
 })
 //Buscar pokemon por nombre
-pokemon.get('/:name([A-Za-z]+)',(req,res, next)=>{
+pokemon.get('/:name([A-Za-z]+)', async (req,res, next)=>{
     const name = req.params.name;
-
-    const pkmn = pk.filter((p)=>
+    const pkmn = await db.query("SELECT * FROM pokemon WHERE pok_name='"+name+"';")
+    return (pkmn.length > 0) ?
+    res.status(200).json(pkmn):
+    res.status(404).send("This Pokemon doesn't exist");
+    /*  const pkmn = pk.filter((p)=>
     {
     //Operador terniario
     //condicion ? valor si verdadero : valor si falso
@@ -37,7 +42,7 @@ pokemon.get('/:name([A-Za-z]+)',(req,res, next)=>{
     //condicion ? valor si verdadero : valor si falso
     (pkmn.length > 0) ? 
         res.status(200).send(pkmn) : 
-        res.status(404).send("This Pokemon doesn't exist");
+        res.status(404).send("This Pokemon doesn't exist"); */
 });
 
 module.exports = pokemon;
