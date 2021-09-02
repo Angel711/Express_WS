@@ -17,11 +17,16 @@ app.use(express.urlencoded({ extended: true }));
 
 //Pagina inicial
 app.get("/",(req,res, next) => {
-    return res.status(200).send("Welcome to the Pokedex");
+    return res.status(200).json({code: 1, message: "Welcome to the Pokedex"});
 });
 
 //Middleware
 app.use("/pokemon",pokemon);
+
+//another middleware
+app.use((req, res, next) => {
+    return res.status(404).json({code: 404, message: "Not Found"});
+});
 
 app.listen(process.env.port || 3000, () => {
     console.log('Server is running...');
