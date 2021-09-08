@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //Pagina inicial
 app.get("/",(req,res, next) => {
-    return res.status(200).json({code: 1, message: "Welcome to the Pokedex"});
+    return res.status(201).json({code: 1, message: "Welcome to the Pokedex"});
 });
 
 //Middleware
