@@ -1,8 +1,9 @@
 const bodyparser = require('body-parser');
 const express = require('express');
-const morgan = require('morgan'); 
+const morgan = require('morgan');
 const app = express();
 const pokemon = require('./routes/pokemon');
+const user = require('./routes/user');
 
 /*Verbos HTTP\
 GET - obtener recursos
@@ -16,16 +17,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Pagina inicial
-app.get("/",(req,res, next) => {
-    return res.status(201).json({code: 1, message: "Welcome to the Pokedex"});
+app.get("/", (req, res, next) => {
+    return res.status(201).json({ code: 1, message: "Welcome to the Pokedex" });
 });
 
 //Middleware
-app.use("/pokemon",pokemon);
+app.use("/pokemon", pokemon);
+
+//Tabla user 
+app.use("/user", user);
 
 //another middleware
 app.use((req, res, next) => {
-    return res.status(404).json({code: 404, message: "Not Found"});
+    return res.status(404).json({ code: 404, message: "Not Found" });
 });
 
 app.listen(process.env.port || 3000, () => {
