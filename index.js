@@ -1,36 +1,37 @@
+//Dependencies
 const bodyparser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+//Routers
 const pokemon = require('./routes/pokemon');
 const user = require('./routes/user');
-
-/*Verbos HTTP\
-GET - obtener recursos
-POST - almacenar/crear recursos
-PATCH - modificar una parte de un recurso
-PUT - modificar un recurso
-DELETE - borrar un recurso
-*/
+//Middlewares
+const auth = require('./middleware/auth');
+const notFound = require('./middleware/notFound')
+const index = require('./middleware/index')
+    /*Verbos HTTP\
+    GET - obtener recursos
+    POST - almacenar/crear recursos
+    PATCH - modificar una parte de un recurso
+    PUT - modificar un recurso
+    DELETE - borrar un recurso
+    */
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Pagina inicial
-app.get("/", (req, res, next) => {
-    return res.status(201).json({ code: 1, message: "Welcome to the Pokedex" });
-});
-
-//Middleware
-app.use("/pokemon", pokemon);
+app.get("/", index);
 
 //Tabla user 
 app.use("/user", user);
-
+//Middleware
+app.use(auth);
+//Tabla pokemon
+app.use("/pokemon", pokemon);
 //another middleware
-app.use((req, res, next) => {
-    return res.status(404).json({ code: 404, message: "Not Found" });
-});
+app.use(notFound);
 
 app.listen(process.env.port || 3000, () => {
     console.log('Server is running...');
