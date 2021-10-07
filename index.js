@@ -18,12 +18,13 @@ const cors = require('./middleware/cors')
     PUT - modificar un recurso
     DELETE - borrar un recurso
     */
+    //authorize Login
+app.use(cors);
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-//authorize Login
-app.use(cors);
+
 //Pagina inicial
 app.get("/", index);
 
