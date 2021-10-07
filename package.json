@@ -1,33 +1,33 @@
 {
-  "name": "expressw",
-  "version": "1.0.0",
-  "description": "This is a project developed for the node.js course",
-  "main": "index.js",
-  "scripts": {
-    "start": "npx nodemon index",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Angel711/Express_WS.git"
-  },
-  "keywords": [
-    "api",
-    "rest",
-    "express",
-    "node.js"
-  ],
-  "author": "Angel E",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Angel711/Express_WS/issues"
-  },
-  "homepage": "https://github.com/Angel711/Express_WS#readme",
-  "dependencies": {
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.12"
-  }
+    "name": "expressw",
+    "version": "1.0.0",
+    "description": "This is a project developed for the node.js course",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Angel711/Express_WS.git"
+    },
+    "keywords": [
+        "api",
+        "rest",
+        "express",
+        "node.js"
+    ],
+    "author": "Angel E",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Angel711/Express_WS/issues"
+    },
+    "homepage": "https://github.com/Angel711/Express_WS#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1",
+        "nodemon": "^2.0.12"
+    }
 }
