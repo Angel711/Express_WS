@@ -3,7 +3,7 @@ const util = require('util');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: '0.0.0.0',
+    host: 'localhost',
     user: 'root',
     password: '',
     database: 'pokemon'
