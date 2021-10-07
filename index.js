@@ -25,10 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 //authorize Login
 app.use(cors);
 //Pagina inicial
-app.get("/", (req, res, next) => {
-    res.status(200);
-    res.send("Hola mundo");
-});
+app.get("/", index);
 
 //Tabla user 
 app.use("/user", user);
