@@ -4,7 +4,8 @@
     "description": "This is a project developed for the node.js course",
     "main": "index.js",
     "engines": {
-        "node": "16.x"
+        "node": "16.x",
+        "npm": "6.x"
     },
     "scripts": {
         "start": "npm index.js",
